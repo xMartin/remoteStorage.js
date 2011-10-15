@@ -30,7 +30,7 @@ to easily install them on your operating system. On __ubuntu__:
     sudo apt-get install php5-mysql mysql-server
 should install php, apache and mysql.
 
-Download the tar file from: `http://github.com/michiel-unhosted/unhosted/tarball/v0.1/`
+Download the tar file from: `http://github.com/unhosted/unhosted/tarball/v0.1/`
 
 Open a shell, and extract the tarball. All the example paths and commands are
 for Ubuntu Linux, please derive your own OS's equivalents for Mac and
@@ -38,13 +38,13 @@ Windows. Search the web where necessary, and improve this README file if you
 find any significant (platform-specific) information. So on Ubuntu, you can
 extract the tarball with:
 
-    cd Downloads; tar -xzvf michiel-unhosted-unhosted-*.tar.gz
+    cd Downloads; tar -xzvf unhosted-unhosted-*.tar.gz
 
 You should see a list of all the files that were extracted. move the whole
 extracted dir to a subdirectory you call unhosted/, under your webroot, for
 instance /var/www/unhosted/. You probably need sudo to write in your webroot:
 
-    sudo mkdir /var/www/unhosted ; sudo mv michiel-unhosted-unhosted-*/* /var/www/unhosted/
+    sudo mkdir /var/www/unhosted ; sudo mv unhosted-unhosted-*/* /var/www/unhosted/
     
 - check that `http://localhost/unhosted/cloudside/unhosted.php` displays:
 
