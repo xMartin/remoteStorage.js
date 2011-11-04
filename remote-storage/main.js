@@ -1,7 +1,9 @@
+(function(define){
 define([
 	"./backend"
 ], function(backend){
 
+backend = backend || window.backend;
 
 // INTERFACE:
 //
@@ -179,3 +181,7 @@ return {
 }
 
 });
+
+})(typeof define == "undefined" ? function(deps, factory){
+	remoteStorage = factory();
+} : define);

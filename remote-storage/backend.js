@@ -1,7 +1,11 @@
+(function(define){
 define([
 	"./ajax",
 	"./oauth"
 ], function(ajax, oauth){
+
+ajax = ajax || window.ajax;
+oauth = oauth || window.oauth;
 
 // GET, PUT, DELETE
 
@@ -136,3 +140,7 @@ return {
 }
 
 });
+
+})(typeof define == "undefined" ? function(deps, factory){
+	backend = factory();
+} : define);

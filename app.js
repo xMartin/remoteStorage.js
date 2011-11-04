@@ -1,16 +1,24 @@
 if(!window.remoteStorage) {//shim switch
-	require([
-		'js/remote-storage/main',
-		'js/remote-storage/oauth',
-		'js/remote-storage/backend'
-	], function(remoteStorage, oauth, backend){
-		window.remoteStorage = remoteStorage;
 	
+	// If we're using AMD, make public libs global.
+	if(typeof require != "undefined"){
+		require([
+			'js/remote-storage/main',
+			'js/remote-storage/oauth',
+			'js/remote-storage/backend'
+		], function(remoteStorage, oauth, backend){
+			window.remoteStorage = remoteStorage;
+			window.oauth = oauth;
+			window.backend = backend;
+		});
+	}
+
+	(function(){
 		// poor man's jQuery  
 		//implementing $(document).ready(embody):
 		document.addEventListener('DOMContentLoaded', function() {
 			document.removeEventListener('DOMContentLoaded', arguments.callee, false );
-			{
+			setTimeout(function(){
 			  var scripts = document.getElementsByTagName('script');
 			  for(i in scripts) {
 				if(/remoteStorage-future.js$/.test(scripts[i].src)) {
@@ -23,9 +31,9 @@ if(!window.remoteStorage) {//shim switch
 				//backend.sync();
 			  });
 			  //remoteStorage.init('sandwiches');
-			}
+			}, 200);
 		}, false);
-	});
+	})();
 }
 
   ////////
@@ -86,26 +94,24 @@ function ButtonClick(el, dataScope) {
   }
 }
 
-require(['js/remote-storage/main'], function(remoteStorage){
-	remoteStorage.init = function(options) {
-	  if(!options) {
-		options = {};
-	  }
-	  if (!(options.dataScope)) {
-		options.dataScope = location.host;
-	  }
-	  var divEl = document.createElement('div');
-	  divEl.id = 'remoteStorageDiv';
-	  divEl.innerHTML = '<link rel="stylesheet" href="../../remoteStorage.css" />'
-		+'<input id="userAddressInput" type="text" placeholder="you@yourremotestorage" onkeyup="InputKeyUp(this);">'
-		+'<span id="userAddress" style="display:none" onmouseover="SpanMouseOver(this);" onmouseout="SpanMouseOut(this);" onclick="SpanClick(this)"></span>'
-		+'<input id="userButton" type="submit" value="Sign in" onclick="ButtonClick(this,'
-		+'\''+options.dataScope+'\')">';
-	  document.body.insertBefore(divEl, document.body.firstChild);
-	  if(remoteStorage.isConnected()) {
-		remoteStorage._init();
-	  }
-	  DisplayConnectionState();
-	  remoteStorage.options = options;
-	};
-});
+remoteStorage.init = function(options) {
+  if(!options) {
+	options = {};
+  }
+  if (!(options.dataScope)) {
+	options.dataScope = location.host;
+  }
+  var divEl = document.createElement('div');
+  divEl.id = 'remoteStorageDiv';
+  divEl.innerHTML = '<link rel="stylesheet" href="../../remoteStorage.css" />'
+	+'<input id="userAddressInput" type="text" placeholder="you@yourremotestorage" onkeyup="InputKeyUp(this);">'
+	+'<span id="userAddress" style="display:none" onmouseover="SpanMouseOver(this);" onmouseout="SpanMouseOut(this);" onclick="SpanClick(this)"></span>'
+	+'<input id="userButton" type="submit" value="Sign in" onclick="ButtonClick(this,'
+	+'\''+options.dataScope+'\')">';
+  document.body.insertBefore(divEl, document.body.firstChild);
+  if(remoteStorage.isConnected()) {
+	remoteStorage._init();
+  }
+  DisplayConnectionState();
+  remoteStorage.options = options;
+};

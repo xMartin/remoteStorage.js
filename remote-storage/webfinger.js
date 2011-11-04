@@ -1,6 +1,9 @@
+(function(define){
 define([
 	"./ajax"
 ], function(ajax){
+
+ajax = ajax || window.ajax;
 
 var userAddress, userName, host, templateParts;//this is all a bit messy, but there are a lot of callbacks here, so globals help us with that.
 function getDavBaseAddress(ua, error, cb){
@@ -166,3 +169,7 @@ function afterLrddSuccess(data, error, cb) {
 return {getDavBaseAddress: getDavBaseAddress};
 
 });
+
+})(typeof define == "undefined" ? function(deps, factory){
+	webfinger = factory();
+} : define);

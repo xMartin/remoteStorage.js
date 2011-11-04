@@ -1,3 +1,4 @@
+(function(define){
 define(function(){
 
 // OAuth2 implicit grant
@@ -51,3 +52,7 @@ return {
 };
 
 });
+
+})(typeof define == "undefined" ? function(factory){
+	oauth = factory();
+} : define);

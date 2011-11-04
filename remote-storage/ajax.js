@@ -1,3 +1,4 @@
+(function(define){
 define(function(){
 
 return function(params) {
@@ -33,3 +34,7 @@ return function(params) {
 };
 
 });
+
+})(typeof define == "undefined" ? function(factory){
+	ajax = factory();
+} : define);
